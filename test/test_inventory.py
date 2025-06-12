@@ -1,4 +1,5 @@
 import time
+import pytest
 from utils.data_loader import load_login_data
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
@@ -11,16 +12,19 @@ def login_and_return_inventory(driver):
     time.sleep(1)
     return InventoryPage(driver)
 
+@pytest.mark.smoke
 def test_verify_title(driver):
     products = login_and_return_inventory(driver)
     assert products.get_title_text() == "Products", "Page title does not match 'Products'"
 
+@pytest.mark.regression
 def test_verify_product_count(driver):
     products = login_and_return_inventory(driver)
     actual_count = products.get_inventory_items_count()
     print(f"Actual product count found: {actual_count}")
     assert actual_count == 6, f"Expected 6 products on the page but found {actual_count}"
 
+@pytest.mark.smoke
 def test_verify_url(driver):
     products = login_and_return_inventory(driver)
     current_url = products.get_current_url()

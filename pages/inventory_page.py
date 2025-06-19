@@ -17,8 +17,12 @@
 #     #   return len(self.driver.find_elements(By.XPATH, "//*[contains(@class, 'inventory_item')]"))
 #         return len(self.driver.find_elements(.XPATH, "//div[@class='Byinventory_item' and @data-test='inventory-item']"))
 
+import os
+from dotenv import load_dotenv
 from selenium.webdriver.common.by import By
 from pages.BasePage import BasePage
+
+load_dotenv()
 
 class InventoryPage(BasePage):
     # Locators 
@@ -33,9 +37,11 @@ class InventoryPage(BasePage):
         self.driver = driver
 
     def get_current_url(self):
+        
         return self.driver.current_url
 
     def get_title_text(self):
+        URL = os.getenv("BASE_URL") 
         return self.driver.find_element(*self.TITLE).text
 
     def get_inventory_items_count(self):

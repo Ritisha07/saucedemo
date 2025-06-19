@@ -1,10 +1,14 @@
+import os
+from dotenv import load_dotenv
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pages.BasePage import BasePage
 
+load_dotenv()
 class LoginPage(BasePage):
-    URL = "https://www.saucedemo.com/"
+    URL = os.getenv("BASE_URL") 
+    # URL = "https://www.saucedemo.com/"
 
     # Locators 
     username_input = (By.ID, "user-name")
@@ -20,13 +24,6 @@ class LoginPage(BasePage):
 
     def open(self):
         self.driver.get(self.URL)
-
-    # def login(self, username, password):
-    #     self.driver.find_element(*self.username_input).clear()
-    #     self.driver.find_element(*self.username_input).send_keys(username)
-    #     self.driver.find_element(*self.password_input).clear()
-    #     self.driver.find_element(*self.password_input).send_keys(password)
-    #     self.driver.find_element(*self.login_button).click()
 
     def login(self, username, password):
         self.wait.until(EC.presence_of_element_located(self.username_input)).clear()

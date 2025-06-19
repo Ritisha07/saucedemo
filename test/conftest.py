@@ -1,9 +1,9 @@
+import os
 import pytest
-import time
 from selenium import webdriver
-from pages.login_page import LoginPage
-from pages.inventory_page import InventoryPage
-from utils.data_loader import load_login_data  # import data loader
+from dotenv import load_dotenv
+
+load_dotenv()  # This loads the .env file and sets the environment variables
 
 @pytest.fixture(scope="function")
 def driver():
@@ -15,8 +15,10 @@ def driver():
     driver.implicitly_wait(10)
     yield driver
     driver.quit()
-import os
-import pytest
+
+@pytest.fixture(scope="session")
+def base_url():
+    return os.getenv("BASE_URL")
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):

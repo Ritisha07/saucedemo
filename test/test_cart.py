@@ -2,7 +2,6 @@ import time
 import pytest
 from utils.data_loader import load_login_data
 from pages.login_page import LoginPage
-from pages.inventory_page import InventoryPage
 from pages.AddToCartPage import AddToCartPage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
